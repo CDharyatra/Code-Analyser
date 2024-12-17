@@ -13,3 +13,33 @@ o	Includes loading animations for real-time feedback.<br>
 4.	Error Handling<br>
 o	User-friendly messages are displayed for upload errors or backend failures.<br>
 
+
+Technology Stack<br>
+Backend<br>
+•	Python with Flask (lightweight server framework).<br>
+Frontend<br>
+•	HTML5 and CSS for structure and styling.<br>
+•	JavaScript for interactivity (AJAX, loaders, and typing effects).<br>
+Assets<br>
+•	Static files are stored in the static folder (e.g., background image 18.jpg).<br>
+•	Templates, like index.html, are in the templates folder.<br>
+<br>
+Deployment Instructions <br>
+1. Prerequisites<br>
+Ensure you have the following installed:<br>
+•	Python 3.x<br>
+•	Flask<br>
+•	PyPDF2<br>
+•	Docx<br>
+•	Pylint<br>
+
+Running the Application<br>
+•	Navigate to the project directory and open Terminal<br>
+•	Run the Flask server using the following command : python app.py<br>
+•	Open a web browser and go to : http://127.0.0.1:5000<br>
+
+Uploading a File<br>
+•	Select a file using the "Upload File" option on the homepage.<br>
+•	Click the Upload & Analyse button.<br>
+•	Wait for the file to be processed. Results will appear in the "Analysis Result" section.<br>
+
