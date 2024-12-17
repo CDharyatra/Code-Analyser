@@ -1,4 +1,4 @@
-# Code-Anaalyser
+# Code-Analyser
 CodeSentry is a web-based application built using Flask and HTML. It allows users to upload files and analyze them dynamically. The system provides a clean and responsive user interface, with real-time feedback on file processing and results.<br>
 Features
 1.	File Upload Functionality<br>
