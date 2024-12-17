@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CodeSentry</title>
+    <style>
+      body {
+        font-family: "Courier New", Courier, monospace;
+        margin: 0;
+        padding: 0;
+        background-image: url('{{ url_for("static", filename="18.jpg") }}');  /*static folder defined for bg image */
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+      }
+
+      h1 {
+        font-size: 3.5rem;
+        margin: 0;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+      }
+
+      h2 {
+        font-size: 2rem;
+        margin-top: -8px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+        color: #ddd;
+      }
+
+      #upload-form {
+        margin-top: 30px;
+        padding: 20px;
+        width: 80%;
+        text-align: center;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 16px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(12px);
+      }
+
+      .clear-btn {
+        position: absolute;
+        right: 100px;
+        color: #333;
+        border: none;
+        font-size: 22px;
+        text-align: center;
+        cursor: pointer;
+        display: none;
+        background: none !important;
+        box-shadow: none !important;
+        transition: none !important;
+      }
+
+      .clear-btn:hover {
+        color: red;
+        box-shadow: none;
+        background: none;
+        border-color: none;
+      }
+
+      input[type="file"] {
+        cursor: pointer;
+      }
+
+      .input-feild {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 600px;
+        padding: 10px 20px;
+        margin: 20px auto;
+        background: rgba(255, 255, 255, 0.2);
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        transition: all 0.3s ease;
+        position: relative;
+      }
+
+      .input-feild:hover {
+        background: rgba(255, 255, 255, 0.3);
+        border-color: rgba(255, 255, 255, 0.4);
+      }
+
+      label {
+        font-size: 1.2rem;
+        font-weight: bold;
+        cursor: pointer;
+        color: #fff;
+      }
+
+      input[type="file"] {
+        color: transparent;
+      }
+
+      input[type="file"]::file-selector-button {
+        display: none;
+      }
+
+      input[type="file"] {
+        border: none;
+        font-size: 16px;
+        color: black;
+        padding: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        text-align: center;
+        margin: 0 auto;
+        display: block;
+        width: 300px;
+      }
+
+      button {
+        padding: 12px 20px;
+        margin-top: 15px;
+        font-size: 14px;
+        font-weight: bold;
+        cursor: pointer;
+        background: rgba(255, 255, 255, 0.2);
+        color: #fff;
+        border: 2px solid rgba(255, 255, 255, 0.5);
+        border-radius: 15px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(10px);
+        transition: all 0.3s ease;
+      }
+
+      button:hover {
+        background: rgba(255, 255, 255, 0.4);
+        border-color: rgba(255, 255, 255, 0.8);
+        color: black;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+      }
+
+      #result {
+        margin-top: 30px;
+        width: 80%;
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.1);
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-radius: 16px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        color: #ddd;
+        text-align: left;
+        white-space: pre-wrap;
+        font-family: "Courier New", Courier, monospace;
+        backdrop-filter: blur(10px);
+      }
+
+      #result h3 {
+        margin: 0 0 10px 0;
+        font-size: 1.5rem;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+      }
+
+      #output {
+        font-size: 1rem;
+        line-height: 1.5;
+      }
+      .spinner {
+        margin: 10px auto;
+        border: 4px solid rgba(255, 255, 255, 0.3);
+        border-top: 4px solid #3498db;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        animation: spin 1s linear infinite;
+      }
+      #loader p {
+        font-size: 1.2rem;
+        margin: 10px 0 0 0;
+        color: #ddd;
+        text-align: center;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      @media (max-width: 768px) {
+        h1 {
+          font-size: 2.5rem;
+        }
+
+        h2 {
+          font-size: 1.5rem;
+        }
+
+        #upload-form,
+        #result {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>CodeSentry</h1>
+    <h2>Clean Code, Neater Docs</h2>
+
+    <div id="upload-form">
+      <form id="fileForm" enctype="multipart/form-data">
+        <div class="input-feild">
+          <label for="file">Upload File</label>
+          <input type="file" id="file" name="file" required />
+          <button class="clear-btn" id="clear-btn">&times;</button>
+        </div>
+
+        <button type="submit">Upload & Analyze</button>
+      </form>
+    </div>
+
+    <div id="result">
+      <h3>Analysis Result:</h3>
+      <pre id="output">No results yet.</pre>
+      <div id="loader" style="display: none">
+        <div class="spinner"></div>
+        <p>Analyzing...</p>
+      </div>
+    </div>
+
+    <script>
+      // Script for displaying the file name which is being uploaded
+      const fileInput = document.getElementById("file");
+
+      fileInput.addEventListener("change", (event) => {
+        const file = event.target.files[0];
+        if (file) {
+          fileInput.setAttribute("data-file-name", file.name);
+        }
+      });
+
+      //the script which displays the file name ends here
+      //Script for the cross button
+      const clearBtn = document.getElementById("clear-btn");
+
+      fileInput.addEventListener("change", () => {
+        if (fileInput.files.length > 0) {
+          clearBtn.style.display = "inline-block";
+        } else {
+          clearBtn.style.display = "none";
+        }
+      });
+
+      clearBtn.addEventListener("click", () => {
+        fileInput.value = "";
+        clearBtn.style.display = "none";
+      });
+      //the button script ends here
+
+      const form = document.getElementById("fileForm");
+      const output = document.getElementById("output");
+
+      function typeEffect(element, text, speed) {                  //typing speed
+        element.textContent = "";
+        let i = 0;
+
+        function type() {
+          if (i < text.length) {
+            element.textContent += text.charAt(i);
+            i++;
+            setTimeout(type, speed);
+          }
+        }
+
+        type();
+      }
+
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const formData = new FormData();
+        const fileInput = document.getElementById("file");
+
+        if (fileInput.files.length === 0) {
+          alert("Please select a file first.");
+          return;
+        }
+
+        formData.append("file", fileInput.files[0]);
+        output.style.display = "none"; //show loader
+        loader.style.display = "block";
+
+        fetch("/upload", {
+          method: "POST",
+          body: formData,
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            loader.style.display = "none"; // Hide loader
+            output.style.display = "block";
+
+            if (data.error) {
+              typeEffect(output, "Error: " + data.error, 20);
+            } else {
+              typeEffect(output, data.result, 20);
+            }
+          })
+          .catch((error) => {
+            loader.style.display = "none"; // Hide loader
+            output.style.display = "block";
+            typeEffect(output, "An error occurred: " + error.message, 20);
+          });
+      });
+    </script>
+  </body>
+</html>
