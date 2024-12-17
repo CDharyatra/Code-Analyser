@@ -12,7 +12,7 @@ o	Clean, responsive layout with a visually appealing background image.<br>
 o	Includes loading animations for real-time feedback.<br>
 4.	Error Handling<br>
 o	User-friendly messages are displayed for upload errors or backend failures.<br>
-
+<br>
 
 Technology Stack<br>
 Backend<br>
