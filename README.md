@@ -42,4 +42,8 @@ Uploading a File<br>
 •	Select a file using the "Upload File" option on the homepage.<br>
 •	Click the Upload & Analyse button.<br>
 •	Wait for the file to be processed. Results will appear in the "Analysis Result" section.<br>
+<br>
+Conclusion<br>
+CodeSentry is a simple yet effective file upload and analysis tool with a modern design. The backend can be extended to handle more complex file processing tasks, while the frontend provides a clean user experience.
+
 
